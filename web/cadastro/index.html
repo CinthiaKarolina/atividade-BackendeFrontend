@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cinthia Store - Cadastrar</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <div class="brand">
+            <h1>Cinthia Store</h1>
+        </div>
+        <nav>
+            <a href="../index.html">Home</a>
+            <a href="index.html">Cadastrar</a>
+            <a href="../produtos/index.html">Produtos</a>
+            <button id="theme-toggle">Modo Escuro</button>
+        </nav>
+    </header>
+
+    <main class="create-product-section">
+        <div class="slogan-container">
+            <h1 class="slogan">Adicione exclusividade.</h1>
+        </div>
+
+        <div class="form-container">
+            <form>
+                <div class="form-group">
+                    <label for="nome">Nome do Produto</label>
+                    <input type="text" id="nome" name="nome" required placeholder="Ex: Vestido de Seda">
+                </div>
+
+                <div class="form-group">
+                    <label for="preco">Preço (R$)</label>
+                    <input type="number" id="preco" name="preco" step="0.01" required placeholder="Ex: 199.90">
+                </div>
+
+                <div class="form-group">
+                    <label for="descricao">Descrição</label>
+                    <textarea id="descricao" name="descricao" rows="4" required
+                        placeholder="Detalhes do produto..."></textarea>
+                </div>
+
+                <button type="submit">Salvar Produto</button>
+            </form>
+        </div>
+    </main>
+
+    <script src="script.js" type="module"></script>
+</body>
+
+</html>
