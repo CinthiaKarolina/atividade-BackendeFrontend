@@ -47,7 +47,7 @@ function createTable() {
 
 // GET /products - List all products (excluding ID)
 app.get('/products', (request, response) => {
-  const query = 'SELECT nome, preco, descricao FROM produtosCinthia'
+  const query = 'SELECT id, nome, preco, descricao FROM produtosCinthia'
   db.all(query, [], (err, rows) => {
     if (err) {
       return response.status(500).json({ error: err.message })
@@ -75,6 +75,25 @@ app.post('/products', (request, response) => {
       message: 'Produto salvo com sucesso!',
       id: this.lastID
     })
+  })
+})
+
+// DELETE /products/:id - Delete a product by its ID
+app.delete('/products/:id', (request, response) => {
+  const { id } = request.params
+
+  const query = 'DELETE FROM produtosCinthia WHERE id = ?'
+  db.run(query, [id], function (err) {
+    if (err) {
+      return response.status(500).json({ error: err.message })
+    }
+
+    // this.changes contains the number of rows affected by the query
+    if (this.changes === 0) {
+      return response.status(404).json({ error: 'Produto não encontrado.' })
+    }
+
+    return response.json({ message: 'Produto apagado com sucesso!' })
   })
 })
 
