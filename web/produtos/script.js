@@ -17,7 +17,10 @@ async function loadProducts() {
         <h3>${product.nome}</h3>
         <span class="price">R$ ${product.preco.toFixed(2)}</span>
         <p class="description">${product.descricao}</p>
-        <button class="delete-btn" onclick="deleteProduct(${product.id})">Apagar</button>
+        <div class="product-actions" style="display: flex; gap: 10px; margin-top: 15px;">
+            <button class="edit-btn" onclick="window.location.href='../editar/index.html?id=${product.id}'" style="background-color: var(--secondary-color); color: var(--background-color); border: none; padding: 0.8rem 1.5rem; border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); flex: 1;">Editar</button>
+            <button class="delete-btn" onclick="deleteProduct(${product.id})" style="flex: 1;">Apagar</button>
+        </div>
       </div>
     `).join('')
 

@@ -97,6 +97,45 @@ app.delete('/products/:id', (request, response) => {
   })
 })
 
+// GET /products/:id - Get a single product by ID
+app.get('/products/:id', (request, response) => {
+  const { id } = request.params
+  const query = 'SELECT id, nome, preco, descricao FROM produtosCinthia WHERE id = ?'
+
+  db.get(query, [id], (err, row) => {
+    if (err) {
+      return response.status(500).json({ error: err.message })
+    }
+    if (!row) {
+      return response.status(404).json({ error: 'Produto não encontrado.' })
+    }
+    return response.json(row)
+  })
+})
+
+// PUT /products/:id - Update a product by ID
+app.put('/products/:id', (request, response) => {
+  const { id } = request.params
+  const { nome, preco, descricao } = request.body
+
+  if (!nome || !preco || !descricao) {
+    return response.status(400).json({ error: 'Nome, preço e descrição são obrigatórios.' })
+  }
+
+  const query = 'UPDATE produtosCinthia SET nome = ?, preco = ?, descricao = ? WHERE id = ?'
+  const params = [nome, preco, descricao, id]
+
+  db.run(query, params, function (err) {
+    if (err) {
+      return response.status(500).json({ error: err.message })
+    }
+    if (this.changes === 0) {
+      return response.status(404).json({ error: 'Produto não encontrado.' })
+    }
+    return response.json({ message: 'Produto atualizado com sucesso!' })
+  })
+})
+
 app.listen(PORT, () => {
   console.log(`Servidor rodando em http://localhost:${PORT}`)
 })
